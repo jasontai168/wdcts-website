@@ -10,47 +10,74 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@500;700;900&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0}
-</style>
 
-<style>
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .m-only{display:none}
+@media (min-width: 768px){.acc-tog,.m-head input,.age-wrap input{display:none}}
 @media (max-width: 767px){
   .m-only{display:block}
   .d-only{display:none !important}
-  body{padding-bottom:76px}
-  .m-head,.m-bar,.m-menu{font-family:'Noto Sans TC',system-ui,sans-serif}
+  .pg-root{min-height:0 !important}
+  .m-head,.m-bar,.m-menu,.m-acc-head{font-family:'Noto Sans TC',system-ui,sans-serif}
   .m-head{position:sticky;top:0;z-index:50;background:#F7F3EC;border-bottom:1px solid #E2D9C9}
   .m-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px}
+  .m-burger{width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+  #m-menu-toggle:focus-visible ~ .m-head-row .m-burger{outline:3px solid #B8432F;outline-offset:2px}
   .m-menu{display:none;border-top:1px solid #E2D9C9;background:#F7F3EC}
-  .m-menu.open{display:block}
+  #m-menu-toggle:checked ~ .m-menu{display:block}
   .m-menu a{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 20px;border-bottom:1px solid #EFE7DA;color:#1C2430;text-decoration:none;font-size:17px;font-weight:500}
   .m-menu a[aria-current="page"]{color:#B8432F;font-weight:700}
   .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#FFFFFF;border-top:1px solid #E2D9C9;box-shadow:0 -6px 20px rgba(28,36,48,.08)}
   .m-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:6px;font-size:15px;font-weight:700;text-decoration:none}
-  .age-chip{min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
-  .age-chip[aria-pressed="true"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  .m-bar-space{height:76px}
+  .age-chip{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font-size:15px;font-weight:700;cursor:pointer;box-sizing:border-box}
+  .age-r{display:none}
+  .age-wrap:has(input:focus-visible) .age-chips{outline:3px solid #B8432F;outline-offset:4px;border-radius:12px}
   .m-strip::-webkit-scrollbar{display:none}
+  .m-acc{border-top:1px solid #E2D9C9}
+  .m-acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:0 20px;background:#FFFFFF;color:#1C2430;font-size:18px;font-weight:700;cursor:pointer}
+  .m-acc-head .acc-plus{font-size:26px;font-weight:400;color:#006274;transition:transform .2s}
+  .acc-tog:checked ~ .m-acc-head .acc-plus{transform:rotate(45deg)}
+  .acc-tog:focus-visible ~ .m-acc-head{outline:3px solid #B8432F;outline-offset:-3px}
+  .acc-tog:not(:checked) ~ .m-acc-body{display:none}
+  .m-acc-body > section{padding-top:20px !important;padding-bottom:28px !important}
+  .m-acc-body > section > div{padding-top:8px !important;padding-bottom:8px !important}
+  .m-acc-last{border-bottom:1px solid #E2D9C9}
+  #age-toddler:checked ~ .age-chips label[for="age-toddler"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-toddler:checked ~ .age-results .r-toddler{display:block}
+  #age-three:checked ~ .age-chips label[for="age-three"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-three:checked ~ .age-results .r-three{display:block}
+  #age-k:checked ~ .age-chips label[for="age-k"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-k:checked ~ .age-results .r-k{display:block}
+  #age-elem:checked ~ .age-chips label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-elem:checked ~ .age-results .r-elem{display:block}
+  #age-mid:checked ~ .age-chips label[for="age-mid"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-mid:checked ~ .age-results .r-mid{display:block}
+  #age-high:checked ~ .age-chips label[for="age-high"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-high:checked ~ .age-results .r-high{display:block}
+  #age-adult:checked ~ .age-chips label[for="age-adult"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-adult:checked ~ .age-results .r-adult{display:block}
+
+  .age-wrap:not(:has(input:checked)) .r-elem{display:block}
+  .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
 }
 </style>
 <style>html{scroll-behavior:smooth} img{max-width:100%} a:focus-visible,button:focus-visible{outline:3px solid #B8432F;outline-offset:2px}</style>
 </head>
 <body>
+<div>
 <div class="m-only m-head">
+  <input type="checkbox" id="m-menu-toggle" class="vh" aria-label="Open menu">
   <div class="m-head-row">
-    <a href="index.html" aria-label="華府台灣學校 home"><img src="images/wdcts-logo.png" alt="Washington DC Taiwanese School 華府台灣學校" style="height:52px;width:auto;display:block"></a>
-    <div style="display:flex;align-items:center;gap:8px">
-      <a href="admissions.html" style="padding:10px 14px;background:#B8432F;color:#FFFFFF;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px">報名 Enroll</a>
-      <button type="button" id="m-menu-btn" aria-expanded="false" aria-controls="m-menu" aria-label="Menu" style="width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
+    <a href="index.html" aria-label="華府台灣學校 home"><img src="images/wdcts-logo.png" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 52px; width: auto; display: block"></a>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a href="admissions.html" style="padding: 10px 14px; background: #B8432F; color: #FFFFFF; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px">報名 Enroll</a>
+      <label for="m-menu-toggle" class="m-burger"><span class="vh">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></label>
     </div>
   </div>
-  <nav id="m-menu" class="m-menu" aria-label="Main"><a href="programs.html">Programs 課程<span aria-hidden="true">›</span></a><a href="admissions.html" aria-current="page">Admissions 報名<span aria-hidden="true">›</span></a><a href="calendar.html">Calendar 行事曆<span aria-hidden="true">›</span></a><a href="student-life.html">Student Life 校園生活<span aria-hidden="true">›</span></a><a href="about.html">About 關於我們<span aria-hidden="true">›</span></a>
-    <a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" target="_blank" rel="noopener" style="color:#B8432F">Donate 捐款<span aria-hidden="true">›</span></a>
-  </nav>
+  <nav class="m-menu" aria-label="Main"><a href="programs.html">Programs 課程<span aria-hidden="true">›</span></a><a href="admissions.html" aria-current="page">Admissions 報名<span aria-hidden="true">›</span></a><a href="calendar.html">Calendar 行事曆<span aria-hidden="true">›</span></a><a href="student-life.html">Student Life 校園生活<span aria-hidden="true">›</span></a><a href="about.html">About 關於我們<span aria-hidden="true">›</span></a><a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" target="_blank" rel="noopener" style="color: #B8432F">Donate 捐款<span aria-hidden="true">›</span></a></nav>
 </div>
-
-<div style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; overflow: hidden">
+<div class="pg-root" style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; overflow: hidden">
 
   <!-- nav -->
   <header class="d-only" style="border-bottom: 1px solid #E2D9C9; background: #F7F3EC">
@@ -271,19 +298,13 @@ body{margin:0}
     </div>
   </footer>
 </div>
-
+<div class="m-only m-bar-space"></div>
 <nav class="m-only m-bar" aria-label="Quick actions">
-  <a href="admissions.html#tuition" style="border:1.5px solid #006274;color:#006274">學費 Tuition</a>
-  <a href="mailto:wdcts.reg@gmail.com?subject=Visit%20a%20Sunday%20class" style="border:1.5px solid #006274;color:#006274">參觀 Visit</a>
-  <a href="admissions.html" style="background:#B8432F;color:#FFFFFF">報名 Enroll</a>
+  <a href="admissions.html#tuition" style="border: 1.5px solid #006274; color: #006274">學費 Tuition</a>
+  <a href="mailto:wdcts.reg@gmail.com?subject=Visit%20a%20Sunday%20class" style="border: 1.5px solid #006274; color: #006274">參觀 Visit</a>
+  <a href="admissions.html" style="background: #B8432F; color: #FFFFFF">報名 Enroll</a>
 </nav>
-
-<script>
-(function(){
-  var b=document.getElementById('m-menu-btn'), m=document.getElementById('m-menu');
-  if(b&&m) b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
-})();
-</script>
+</div>
 
 </body>
 </html>
