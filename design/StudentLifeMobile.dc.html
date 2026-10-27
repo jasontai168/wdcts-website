@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>WDCTS Student Life — Mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.m-only{display:none}
+@media (min-width: 768px){.acc-tog,.m-head input,.age-wrap input{display:none}}
+@media (max-width: 767px){
+  .m-only{display:block}
+  .d-only{display:none !important}
+  .pg-root{min-height:0 !important}
+  .m-head,.m-bar,.m-menu,.m-acc-head{font-family:'Noto Sans TC',system-ui,sans-serif}
+  .m-head{position:sticky;top:0;z-index:50;background:#F7F3EC;border-bottom:1px solid #E2D9C9}
+  .m-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px}
+  .m-burger{width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+  #m-menu-toggle:focus-visible ~ .m-head-row .m-burger{outline:3px solid #B8432F;outline-offset:2px}
+  .m-menu{display:none;border-top:1px solid #E2D9C9;background:#F7F3EC}
+  #m-menu-toggle:checked ~ .m-menu{display:block}
+  .m-menu a{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 20px;border-bottom:1px solid #EFE7DA;color:#1C2430;text-decoration:none;font-size:17px;font-weight:500}
+  .m-menu a[aria-current="page"]{color:#B8432F;font-weight:700}
+  .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#FFFFFF;border-top:1px solid #E2D9C9;box-shadow:0 -6px 20px rgba(28,36,48,.08)}
+  .m-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:6px;font-size:15px;font-weight:700;text-decoration:none}
+  .m-bar-space{height:76px}
+  .age-chip{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font-size:15px;font-weight:700;cursor:pointer;box-sizing:border-box}
+  .age-r{display:none}
+  .age-wrap:has(input:focus-visible) .age-chips{outline:3px solid #B8432F;outline-offset:4px;border-radius:12px}
+  .m-strip::-webkit-scrollbar{display:none}
+  .m-acc{border-top:1px solid #E2D9C9}
+  .m-acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:0 20px;background:#FFFFFF;color:#1C2430;font-size:18px;font-weight:700;cursor:pointer}
+  .m-acc-head .acc-plus{font-size:26px;font-weight:400;color:#006274;transition:transform .2s}
+  .acc-tog:checked ~ .m-acc-head .acc-plus{transform:rotate(45deg)}
+  .acc-tog:focus-visible ~ .m-acc-head{outline:3px solid #B8432F;outline-offset:-3px}
+  .acc-tog:not(:checked) ~ .m-acc-body{display:none}
+  .m-acc-body > section{padding-top:20px !important;padding-bottom:28px !important}
+  .m-acc-body > section > div{padding-top:8px !important;padding-bottom:8px !important}
+  .m-acc-last{border-bottom:1px solid #E2D9C9}
+  #age-toddler:checked ~ .age-chips label[for="age-toddler"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-toddler:checked ~ .age-results .r-toddler{display:block}
+  #age-three:checked ~ .age-chips label[for="age-three"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-three:checked ~ .age-results .r-three{display:block}
+  #age-k:checked ~ .age-chips label[for="age-k"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-k:checked ~ .age-results .r-k{display:block}
+  #age-elem:checked ~ .age-chips label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-elem:checked ~ .age-results .r-elem{display:block}
+  #age-mid:checked ~ .age-chips label[for="age-mid"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-mid:checked ~ .age-results .r-mid{display:block}
+  #age-high:checked ~ .age-chips label[for="age-high"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-high:checked ~ .age-results .r-high{display:block}
+  #age-adult:checked ~ .age-chips label[for="age-adult"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-adult:checked ~ .age-results .r-adult{display:block}
+
+  .age-wrap:not(:has(input:checked)) .r-elem{display:block}
+  .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+}
+</style>
+</helmet>
+<div style="width: 390px; background: #F7F3EC">
+  <dc-import name="StudentLife" hint-size="390px,6650px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6650}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

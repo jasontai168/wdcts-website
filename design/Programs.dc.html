@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>WDCTS Programs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.m-only{display:none}
+@media (min-width: 768px){.acc-tog,.m-head input,.age-wrap input{display:none}}
+@media (max-width: 767px){
+  .m-only{display:block}
+  .d-only{display:none !important}
+  .pg-root{min-height:0 !important}
+  .m-head,.m-bar,.m-menu,.m-acc-head{font-family:'Noto Sans TC',system-ui,sans-serif}
+  .m-head{position:sticky;top:0;z-index:50;background:#F7F3EC;border-bottom:1px solid #E2D9C9}
+  .m-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px}
+  .m-burger{width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+  #m-menu-toggle:focus-visible ~ .m-head-row .m-burger{outline:3px solid #B8432F;outline-offset:2px}
+  .m-menu{display:none;border-top:1px solid #E2D9C9;background:#F7F3EC}
+  #m-menu-toggle:checked ~ .m-menu{display:block}
+  .m-menu a{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 20px;border-bottom:1px solid #EFE7DA;color:#1C2430;text-decoration:none;font-size:17px;font-weight:500}
+  .m-menu a[aria-current="page"]{color:#B8432F;font-weight:700}
+  .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#FFFFFF;border-top:1px solid #E2D9C9;box-shadow:0 -6px 20px rgba(28,36,48,.08)}
+  .m-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:6px;font-size:15px;font-weight:700;text-decoration:none}
+  .m-bar-space{height:76px}
+  .age-chip{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font-size:15px;font-weight:700;cursor:pointer;box-sizing:border-box}
+  .age-r{display:none}
+  .age-wrap:has(input:focus-visible) .age-chips{outline:3px solid #B8432F;outline-offset:4px;border-radius:12px}
+  .m-strip::-webkit-scrollbar{display:none}
+  .m-acc{border-top:1px solid #E2D9C9}
+  .m-acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:0 20px;background:#FFFFFF;color:#1C2430;font-size:18px;font-weight:700;cursor:pointer}
+  .m-acc-head .acc-plus{font-size:26px;font-weight:400;color:#006274;transition:transform .2s}
+  .acc-tog:checked ~ .m-acc-head .acc-plus{transform:rotate(45deg)}
+  .acc-tog:focus-visible ~ .m-acc-head{outline:3px solid #B8432F;outline-offset:-3px}
+  .acc-tog:not(:checked) ~ .m-acc-body{display:none}
+  .m-acc-body > section{padding-top:20px !important;padding-bottom:28px !important}
+  .m-acc-body > section > div{padding-top:8px !important;padding-bottom:8px !important}
+  .m-acc-last{border-bottom:1px solid #E2D9C9}
+  #age-toddler:checked ~ .age-chips label[for="age-toddler"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-toddler:checked ~ .age-results .r-toddler{display:block}
+  #age-three:checked ~ .age-chips label[for="age-three"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-three:checked ~ .age-results .r-three{display:block}
+  #age-k:checked ~ .age-chips label[for="age-k"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-k:checked ~ .age-results .r-k{display:block}
+  #age-elem:checked ~ .age-chips label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-elem:checked ~ .age-results .r-elem{display:block}
+  #age-mid:checked ~ .age-chips label[for="age-mid"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-mid:checked ~ .age-results .r-mid{display:block}
+  #age-high:checked ~ .age-chips label[for="age-high"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-high:checked ~ .age-results .r-high{display:block}
+  #age-adult:checked ~ .age-chips label[for="age-adult"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-adult:checked ~ .age-results .r-adult{display:block}
+
+  .age-wrap:not(:has(input:checked)) .r-elem{display:block}
+  .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+}
+</style>
+</helmet>
+<div>
+<div class="m-only m-head">
+  <input type="checkbox" id="m-menu-toggle" class="vh" aria-label="Open menu">
+  <div class="m-head-row">
+    <a href="Main.dc.html" aria-label="華府台灣學校 home"><img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 52px; width: auto; display: block"></a>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a href="Admissions.dc.html" style="padding: 10px 14px; background: #B8432F; color: #FFFFFF; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px">報名 Enroll</a>
+      <label for="m-menu-toggle" class="m-burger"><span class="vh">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></label>
+    </div>
+  </div>
+  <nav class="m-menu" aria-label="Main"><a href="Programs.dc.html" aria-current="page">Programs 課程<span aria-hidden="true">›</span></a><a href="Admissions.dc.html">Admissions 報名<span aria-hidden="true">›</span></a><a href="Calendar.dc.html">Calendar 行事曆<span aria-hidden="true">›</span></a><a href="StudentLife.dc.html">Student Life 校園生活<span aria-hidden="true">›</span></a><a href="About.dc.html">About 關於我們<span aria-hidden="true">›</span></a><a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" style="color: #B8432F">Donate 捐款<span aria-hidden="true">›</span></a></nav>
+</div>
+<div class="pg-root" style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; min-height: 6000px; overflow: hidden">
+
+  <!-- nav -->
+  <header class="d-only" style="border-bottom: 1px solid #E2D9C9; background: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="Main.dc.html" style="display: flex; align-items: center; text-decoration: none">
+        <img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 88px; width: auto; display: block">
+      </a>
+      <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 15px; font-weight: 500">
+        <a href="Programs.dc.html" style="text-decoration: none; color: #B8432F; font-weight: 700">Programs 課程</a>
+        <a href="Admissions.dc.html" style="text-decoration: none; color: #1C2430">Admissions 報名</a>
+        <a href="Calendar.dc.html" style="text-decoration: none; color: #1C2430">Calendar 行事曆</a>
+        <a href="StudentLife.dc.html" style="text-decoration: none; color: #1C2430">Student Life 校園生活</a>
+        <a href="About.dc.html" style="text-decoration: none; color: #1C2430">About 關於我們</a>
+      </nav>
+      <a href="Admissions.dc.html" style="padding: 12px 20px; background: #B8432F; border-radius: 4px; text-decoration: none; color: #FFFFFF; font-weight: 700; font-size: 14px">Register 報名</a>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 40px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+    <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">PROGRAMS 課程</span>
+      <h1 style="margin: 0; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.1">Two languages.<br>One Sunday afternoon.</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 1.7; color: #3D4654">A dual-track curriculum where students specialize in Taiwanese 台語, Mandarin 華語, or both — from 18 months through AP Chinese, plus classes for adults.</p>
+    </div>
+    <img src="/_blob/fcde8a204fa532a3c9d7a272a5581c7c" alt="Collage of WDCTS students writing and studying in class" style="flex: 1 1 380px; min-width: 0; width: 100%; height: 380px; object-fit: cover; display: block">
+  </section>
+
+  <!-- jump nav -->
+  <section class="d-only" style="max-width: 1200px; margin: 0 auto; padding: 8px 24px 40px">
+    <nav aria-label="On this page" style="display: flex; flex-wrap: wrap; gap: 10px">
+      <a href="#early" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">18–36 mo 幼兒</a>
+      <a href="#taiwanese" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">Taiwanese 台語</a>
+      <a href="#mandarin" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">Mandarin 華語</a>
+      <a href="#ap" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">AP Chinese</a>
+      <a href="#tcml" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">Adult Mandarin (TCML)</a>
+      <a href="#enrichment" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">Adult enrichment 成人才藝</a>
+      <a href="#activities" style="padding: 10px 18px; border: 1.5px solid #C9BFAE; border-radius: 999px; background: #FFFFFF; color: #1C2430; text-decoration: none; font-weight: 700; font-size: 15px">Youth activities 才藝活動</a>
+    </nav>
+  </section>
+
+  <!-- a typical Sunday -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 0 24px 40px">
+    <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 32px; display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+        <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 700">A typical Sunday 一個禮拜日</h2>
+        <span style="font-size: 14px; color: #5A6372">Mandarin first, then Taiwanese — so students can take both.</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px">
+        <div style="background: #F7F3EC; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 700; color: #5A6372; font-size: 14px">12:30–1:25</span><span style="font-weight: 700">Chess · Dance</span></div>
+        <div style="background: #DCEFEC; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 700; color: #00505E; font-size: 14px">1:30–2:50</span><span style="font-weight: 700">Mandarin 華語</span><span style="font-size: 13px; color: #3D4654">Age 3: 2:00–2:50</span></div>
+        <div style="background: #FBE3DC; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 700; color: #8A2E1F; font-size: 14px">3:10–4:30</span><span style="font-weight: 700">Taiwanese 台語</span><span style="font-size: 13px; color: #3D4654">Age 3: 3:10–4:00</span></div>
+        <div style="background: #F7F3EC; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 700; color: #5A6372; font-size: 14px">3:30–4:15</span><span style="font-weight: 700">Parent-child 親子律動</span></div>
+        <div style="background: #F7F3EC; padding: 16px; display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 700; color: #5A6372; font-size: 14px">3:30–5:30</span><span style="font-weight: 700">Diabolo · Karate</span></div>
+      </div>
+      <a href="Admissions.dc.html" style="align-self: flex-start; color: #006274; font-weight: 700">See tuition for every class →</a>
+    </div>
+  </section>
+
+  <!-- early childhood -->
+  <div class="m-acc"><input type="checkbox" id="acc-early" class="vh acc-tog"><label for="acc-early" class="m-only m-acc-head"><span>幼兒 18–36 mo · 親子律動</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="early" style="max-width: 1200px; margin: 0 auto; padding: 32px 24px 56px">
+    <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 40px; display: flex; flex-wrap: wrap; gap: 32px; box-sizing: border-box">
+      <div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 8px">
+        <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">EARLY CHILDHOOD · 18–36 MONTHS</span>
+        <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 32px; font-weight: 700">幼兒親子律動班</h2>
+        <span style="font-size: 16px; color: #3D4654">Parent-Child Rhythmical Movement in Taiwanese and Mandarin</span>
+      </div>
+      <div style="flex: 2 1 420px; display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.7; color: #3D4654">
+        <p style="margin: 0">Toddlers learn with a parent beside them, through songs, movement and play — in both languages.</p>
+        <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px">
+          <li>Numbers 1–10, colors, shapes, body parts 數數、顏色、形狀、五官</li>
+          <li>Opposites: slow / fast / stop, high / low 快慢停、大小</li>
+          <li>Running, walking, hopping, turning 走跑跳轉圈</li>
+          <li>Around 12 everyday Taiwanese phrases</li>
+        </ul>
+      </div>
+    </div>
+  </section></div></div>
+
+  <!-- Taiwanese track -->
+  <div class="m-acc"><input type="checkbox" id="acc-taiwanese" class="vh acc-tog"><label for="acc-taiwanese" class="m-only m-acc-head"><span>台語班 Taiwanese</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="taiwanese" style="background: #006274; color: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-wrap: wrap; gap: 48px">
+      <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 14px">
+        <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #BFE3DE; font-weight: 700">TAIWANESE TRACK · PRE-K – GRADE 12</span>
+        <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 40px; font-weight: 700; line-height: 1.2">台語班</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCEFEC">Preserving heritage through song, story and writing. Students learn to speak — and to read and write Taiwanese in Modern Taiwanese Language 台語現代文書法.</p>
+        <p style="margin: 0; font-size: 14px; color: #BFE3DE">Textbooks: King-An Taiwanese Reader 金安台語讀本 · Children's Taiwanese Book 兒童台語課本</p>
+      </div>
+      <div style="flex: 1 1 480px; display: flex; flex-direction: column; gap: 16px">
+        <div style="background: #F7F3EC; color: #1C2430; padding: 28px; display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 13px; font-weight: 700; color: #5A6372">Age 3 · Age 4 · Kindergarten</span>
+          <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">兒童台語 3歲班 · 4歲班 · 幼稚園班</span>
+          <span style="font-size: 15px; line-height: 1.7; color: #3D4654">Nursery rhymes 唸謠, children's songs, stories, crafts, basic conversation and first words — and getting used to learning in a group.</span>
+        </div>
+        <div style="background: #F7F3EC; color: #1C2430; padding: 28px; display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 13px; font-weight: 700; color: #5A6372">Grades 1 – 12</span>
+          <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">台語 一年級 至 十二年級班</span>
+          <span style="font-size: 15px; line-height: 1.7; color: #3D4654">Songs, stories, crafts and conversation, plus reading and writing in Modern Taiwanese Language.</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px">
+          <a href="https://wdcts.org/wp-content/uploads/2024/10/Classes-Youth_Taiwanese_inE.jpeg" style="color: #FFFFFF; font-weight: 700">Class flyer (English) →</a>
+          <a href="https://wdcts.org/wp-content/uploads/2025/12/Classes-Youth_Taiwanese_inC.webp" style="color: #FFFFFF; font-weight: 700">課程介紹（中文）→</a>
+        </div>
+      </div>
+    </div>
+  </section></div></div>
+
+  <!-- Mandarin track -->
+  <div class="m-acc"><input type="checkbox" id="acc-mandarin" class="vh acc-tog"><label for="acc-mandarin" class="m-only m-acc-head"><span>華語班 Mandarin · AP</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="mandarin" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-wrap: wrap; gap: 48px">
+    <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 14px">
+      <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">MANDARIN TRACK · PRE-K – GRADE 8</span>
+      <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 40px; font-weight: 700; line-height: 1.2">華語班</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #3D4654">Traditional characters, built on Zhuyin 注音 — the phonetic system used in Taiwan — with radicals, strokes and stroke order.</p>
+      <p style="margin: 0; font-size: 14px; color: #5A6372">Textbooks: 學華語開步走 · 學華語向前走 (Let's Learn Chinese)</p>
+      <img src="/_blob/0bfa503cc945f837747dbfa1566ba37a" alt="A student-made Taiwan culture display board at Taiwan Fun 2024" style="width: 100%; height: 240px; object-fit: cover; display: block; margin-top: 8px">
+    </div>
+    <div style="flex: 1 1 480px; display: flex; flex-direction: column; gap: 16px">
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 28px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 700; color: #5A6372">Age 3 · Age 4 · Kindergarten</span>
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">兒童華語 3歲班 · 4歲班 · 幼稚園班</span>
+        <span style="font-size: 15px; line-height: 1.7; color: #3D4654">Basic conversation, an introduction to Zhuyin, simple words, and learning together as a group.</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 28px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 700; color: #5A6372">Grades 1 – 8</span>
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">華語 一年級 至 八年級班</span>
+        <span style="font-size: 15px; line-height: 1.7; color: #3D4654">Reading and writing Zhuyin, radicals 部首, strokes 筆劃 and stroke order 筆順.</span>
+      </div>
+      <div id="ap" style="background: #1C2430; color: #F7F3EC; padding: 28px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; font-weight: 700; color: #E8A897">High school</span>
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">AP Chinese</span>
+        <span style="font-size: 15px; line-height: 1.7; color: #C9CED6">Interpersonal, interpretive and presentational communication, with mock exams, practice and cultural projects to get ready for the AP exam.</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px">
+        <a href="https://wdcts.org/wp-content/uploads/2024/10/Classes-Youth_Mandarin_inE.jpeg" style="color: #006274; font-weight: 700">Class flyer (English) →</a>
+        <a href="https://wdcts.org/wp-content/uploads/2025/12/Classes-Youth_Mandarin_inC.webp" style="color: #006274; font-weight: 700">課程介紹（中文）→</a>
+      </div>
+    </div>
+  </section></div></div>
+
+  <!-- TCML -->
+  <div class="m-acc"><input type="checkbox" id="acc-tcml" class="vh acc-tog"><label for="acc-tcml" class="m-only m-acc-head"><span>成人華語 Adult Mandarin</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="tcml" style="background: #EFE7DA">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; gap: 32px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 680px">
+          <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">ADULTS · TAIWAN CENTER FOR MANDARIN LEARNING</span>
+          <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 38px; font-weight: 700">Adult Mandarin (TCML)</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #3D4654">Professional Mandarin for adults in the DC area, sponsored by Taiwan's Overseas Community Affairs Council. In person on Sundays or online on weeknights.</p>
+        </div>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScxMFi5UFZonVo-_8a8wQB8Q9Cda5bTvJCPFPj0XrDhBFd1og/viewform" style="padding: 16px 24px; background: #B8432F; color: #FFFFFF; text-decoration: none; font-weight: 700; border-radius: 4px">Register for TCML →</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+        <div style="background: #FFFFFF; padding: 24px; display: flex; flex-direction: column; gap: 8px; border-top: 4px solid #4DB7A9">
+          <span style="font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Beginner</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #3D4654">No Mandarin needed. Pinyin, greetings, family, daily routines, basic travel.</span>
+        </div>
+        <div style="background: #FFFFFF; padding: 24px; display: flex; flex-direction: column; gap: 8px; border-top: 4px solid #2A9A8E">
+          <span style="font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Intermediate Low</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #3D4654">Character basics, shopping, dining, phone calls, making plans.</span>
+        </div>
+        <div style="background: #FFFFFF; padding: 24px; display: flex; flex-direction: column; gap: 8px; border-top: 4px solid #127A84">
+          <span style="font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Intermediate High</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #3D4654">Housing, travel, festivals, tea culture, workplace communication.</span>
+        </div>
+        <div style="background: #FFFFFF; padding: 24px; display: flex; flex-direction: column; gap: 8px; border-top: 4px solid #006274">
+          <span style="font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Advanced</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #3D4654">Taiwanese culture and history, current events, TOCFL Band B practice.</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 20px">
+        <div style="flex: 1 1 380px; background: #FFFFFF; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px">Schedule 時間</h3>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E2D9C9; font-size: 15px"><span>In person · all levels</span><span style="font-weight: 700">Sun 1:30–3:00pm</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E2D9C9; font-size: 15px"><span>Online · Basic conversation</span><span style="font-weight: 700">Wed 7:30–9:00pm</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E2D9C9; font-size: 15px"><span>Online · Intermediate conversation</span><span style="font-weight: 700">Mon 7:30–9:00pm</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 15px"><span>Online · Theme discussion</span><span style="font-weight: 700">Thu 8:00–9:00pm</span></div>
+        </div>
+        <div style="flex: 1 1 380px; background: #FFFFFF; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px">Tuition 學費 <span style="font-size: 14px; font-weight: 400; color: #5A6372">· textbooks included</span></h3>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E2D9C9; font-size: 15px"><span>In person <span style="color: #5A6372">or</span> online</span><span style="font-weight: 700">$200 / semester · $340 / year</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; font-size: 15px"><span>In person + online</span><span style="font-weight: 700">$225 / semester · $380 / year</span></div>
+          <p style="margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: #3D4654">Optional: prepare for the TOCFL proficiency test (Novice, Bands A–C), promoted by Taiwan's Ministry of Education.</p>
+        </div>
+      </div>
+    </div>
+  </section></div></div>
+
+  <!-- adult enrichment -->
+  <div class="m-acc"><input type="checkbox" id="acc-enrichment" class="vh acc-tog"><label for="acc-enrichment" class="m-only m-acc-head"><span>成人才藝 Adult enrichment</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="enrichment" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+    <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 16px">
+      <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">ADULT ENRICHMENT 成人才藝</span>
+      <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700; line-height: 1.25">Same Sunday, for grown-ups.</h2>
+      <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #3D4654">Open to everyone while kids are in class. Classes that don't reach minimum enrollment may be canceled.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Basic Taiwanese 台語會話</span>
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Modern Literal Taiwanese 台語現代文</span>
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Yoga 瑜珈</span>
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Tai-Chi 太極拳 · basic &amp; intermediate</span>
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Pickleball 匹克球</span>
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Guzheng 古箏</span>
+        <span style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 10px 16px; font-size: 15px; font-weight: 500">Percussion 打擊樂</span>
+      </div>
+      <div style="background: #1C2430; color: #F7F3EC; padding: 24px; display: flex; flex-direction: column; gap: 6px; margin-top: 8px">
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Dragon Boat 龍舟</span>
+        <span style="font-size: 15px; line-height: 1.6; color: #C9CED6">Two school teams — the adult Humpbacks and the youth Belugas — race every year at the DC Dragon Boat Festival.</span>
+      </div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScxMFi5UFZonVo-_8a8wQB8Q9Cda5bTvJCPFPj0XrDhBFd1og/viewform" style="align-self: flex-start; padding: 14px 22px; background: #B8432F; color: #FFFFFF; text-decoration: none; font-weight: 700; border-radius: 4px">Adult registration 成人報名 →</a>
+    </div>
+    <img src="/_blob/cc203e05a121dd0dcb02f4ca5f0cb653" alt="WDCTS dragon boat teams on the Potomac waterfront, 2025" style="flex: 1 1 420px; min-width: 0; width: 100%; height: 460px; object-fit: cover; display: block">
+  </section></div></div>
+
+  <!-- youth activities -->
+  <div class="m-acc m-acc-last"><input type="checkbox" id="acc-activities" class="vh acc-tog"><label for="acc-activities" class="m-only m-acc-head"><span>兒童才藝 Youth activities</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="activities" style="background: #FFFFFF; border-top: 1px solid #E2D9C9">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+      <img src="/_blob/f783f3fa91412e9a1c93a5f495fb13d7" alt="Students and teachers at the WDCTS summer camp" style="flex: 1 1 420px; min-width: 0; width: 100%; height: 360px; object-fit: cover; display: block">
+      <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 16px">
+        <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">YOUTH ACTIVITIES 才藝活動</span>
+        <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700; line-height: 1.25">More than language class.</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; font-size: 15px; line-height: 1.7">
+          <div style="display: flex; flex-direction: column"><strong style="font-family: 'Noto Serif TC', serif; font-size: 17px">Arts &amp; culture</strong><span style="color: #3D4654">Art, crafts, calligraphy 書法, summer camp</span></div>
+          <div style="display: flex; flex-direction: column"><strong style="font-family: 'Noto Serif TC', serif; font-size: 17px">Movement</strong><span style="color: #3D4654">Dragon boat, dance, diabolo 扯鈴, basketball, pickleball</span></div>
+          <div style="display: flex; flex-direction: column"><strong style="font-family: 'Noto Serif TC', serif; font-size: 17px">Strategy &amp; skills</strong><span style="color: #3D4654">Chess club 棋社, karate 空手道, guzheng 古箏, percussion</span></div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: #5A6372">New diabolo students are waitlisted due to space limits.</p>
+        <a href="StudentLife.dc.html" style="align-self: flex-start; color: #006274; font-weight: 700">See photos on Student Life →</a>
+      </div>
+    </div>
+  </section></div></div>
+
+  <!-- CTA -->
+  <section style="background: #006274; color: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 64px 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
+      <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 32px; font-weight: 700">Found the right class? 找到適合的班了嗎？</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <a href="Admissions.dc.html" style="padding: 16px 26px; background: #B8432F; color: #FFFFFF; text-decoration: none; font-weight: 700; border-radius: 4px">How to enroll 報名方式</a>
+        <a href="mailto:wdcts.reg@gmail.com" style="padding: 16px 26px; background: #F7F3EC; color: #1C2430; text-decoration: none; font-weight: 700; border-radius: 4px">Ask about placement</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #00505E; color: #E6F2F1">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-size: 14px; line-height: 1.8">
+      <img src="/_blob/8e5386d4570b20b7dc223eb1a399c85f" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 96px; width: auto; display: block">
+      <span>Sundays 1:30–4:30pm · Cabin John MS, 10701 Gainsborough Rd, Potomac, MD 20854</span>
+    </div>
+  </footer>
+</div>
+<div class="m-only m-bar-space"></div>
+<nav class="m-only m-bar" aria-label="Quick actions">
+  <a href="Admissions.dc.html#tuition" style="border: 1.5px solid #006274; color: #006274">學費 Tuition</a>
+  <a href="mailto:wdcts.reg@gmail.com?subject=Visit%20a%20Sunday%20class" style="border: 1.5px solid #006274; color: #006274">參觀 Visit</a>
+  <a href="Admissions.dc.html" style="background: #B8432F; color: #FFFFFF">報名 Enroll</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

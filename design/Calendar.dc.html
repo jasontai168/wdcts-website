@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>WDCTS Calendar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.m-only{display:none}
+@media (min-width: 768px){.acc-tog,.m-head input,.age-wrap input{display:none}}
+@media (max-width: 767px){
+  .m-only{display:block}
+  .d-only{display:none !important}
+  .pg-root{min-height:0 !important}
+  .m-head,.m-bar,.m-menu,.m-acc-head{font-family:'Noto Sans TC',system-ui,sans-serif}
+  .m-head{position:sticky;top:0;z-index:50;background:#F7F3EC;border-bottom:1px solid #E2D9C9}
+  .m-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px}
+  .m-burger{width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+  #m-menu-toggle:focus-visible ~ .m-head-row .m-burger{outline:3px solid #B8432F;outline-offset:2px}
+  .m-menu{display:none;border-top:1px solid #E2D9C9;background:#F7F3EC}
+  #m-menu-toggle:checked ~ .m-menu{display:block}
+  .m-menu a{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 20px;border-bottom:1px solid #EFE7DA;color:#1C2430;text-decoration:none;font-size:17px;font-weight:500}
+  .m-menu a[aria-current="page"]{color:#B8432F;font-weight:700}
+  .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#FFFFFF;border-top:1px solid #E2D9C9;box-shadow:0 -6px 20px rgba(28,36,48,.08)}
+  .m-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:6px;font-size:15px;font-weight:700;text-decoration:none}
+  .m-bar-space{height:76px}
+  .age-chip{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font-size:15px;font-weight:700;cursor:pointer;box-sizing:border-box}
+  .age-r{display:none}
+  .age-wrap:has(input:focus-visible) .age-chips{outline:3px solid #B8432F;outline-offset:4px;border-radius:12px}
+  .m-strip::-webkit-scrollbar{display:none}
+  .m-acc{border-top:1px solid #E2D9C9}
+  .m-acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:0 20px;background:#FFFFFF;color:#1C2430;font-size:18px;font-weight:700;cursor:pointer}
+  .m-acc-head .acc-plus{font-size:26px;font-weight:400;color:#006274;transition:transform .2s}
+  .acc-tog:checked ~ .m-acc-head .acc-plus{transform:rotate(45deg)}
+  .acc-tog:focus-visible ~ .m-acc-head{outline:3px solid #B8432F;outline-offset:-3px}
+  .acc-tog:not(:checked) ~ .m-acc-body{display:none}
+  .m-acc-body > section{padding-top:20px !important;padding-bottom:28px !important}
+  .m-acc-body > section > div{padding-top:8px !important;padding-bottom:8px !important}
+  .m-acc-last{border-bottom:1px solid #E2D9C9}
+  #age-toddler:checked ~ .age-chips label[for="age-toddler"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-toddler:checked ~ .age-results .r-toddler{display:block}
+  #age-three:checked ~ .age-chips label[for="age-three"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-three:checked ~ .age-results .r-three{display:block}
+  #age-k:checked ~ .age-chips label[for="age-k"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-k:checked ~ .age-results .r-k{display:block}
+  #age-elem:checked ~ .age-chips label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-elem:checked ~ .age-results .r-elem{display:block}
+  #age-mid:checked ~ .age-chips label[for="age-mid"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-mid:checked ~ .age-results .r-mid{display:block}
+  #age-high:checked ~ .age-chips label[for="age-high"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-high:checked ~ .age-results .r-high{display:block}
+  #age-adult:checked ~ .age-chips label[for="age-adult"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-adult:checked ~ .age-results .r-adult{display:block}
+
+  .age-wrap:not(:has(input:checked)) .r-elem{display:block}
+  .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+}
+</style>
+</helmet>
+<div>
+<div class="m-only m-head">
+  <input type="checkbox" id="m-menu-toggle" class="vh" aria-label="Open menu">
+  <div class="m-head-row">
+    <a href="Main.dc.html" aria-label="華府台灣學校 home"><img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 52px; width: auto; display: block"></a>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a href="Admissions.dc.html" style="padding: 10px 14px; background: #B8432F; color: #FFFFFF; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px">報名 Enroll</a>
+      <label for="m-menu-toggle" class="m-burger"><span class="vh">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></label>
+    </div>
+  </div>
+  <nav class="m-menu" aria-label="Main"><a href="Programs.dc.html">Programs 課程<span aria-hidden="true">›</span></a><a href="Admissions.dc.html">Admissions 報名<span aria-hidden="true">›</span></a><a href="Calendar.dc.html" aria-current="page">Calendar 行事曆<span aria-hidden="true">›</span></a><a href="StudentLife.dc.html">Student Life 校園生活<span aria-hidden="true">›</span></a><a href="About.dc.html">About 關於我們<span aria-hidden="true">›</span></a><a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" style="color: #B8432F">Donate 捐款<span aria-hidden="true">›</span></a></nav>
+</div>
+<div class="pg-root" style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; min-height: 4400px; overflow: hidden">
+
+  <!-- nav -->
+  <header class="d-only" style="border-bottom: 1px solid #E2D9C9; background: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="Main.dc.html" style="display: flex; align-items: center; text-decoration: none">
+        <img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 88px; width: auto; display: block">
+      </a>
+      <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 15px; font-weight: 500">
+        <a href="Programs.dc.html" style="text-decoration: none; color: #1C2430">Programs 課程</a>
+        <a href="Admissions.dc.html" style="text-decoration: none; color: #1C2430">Admissions 報名</a>
+        <a href="Calendar.dc.html" style="text-decoration: none; color: #B8432F; font-weight: 700">Calendar 行事曆</a>
+        <a href="StudentLife.dc.html" style="text-decoration: none; color: #1C2430">Student Life 校園生活</a>
+        <a href="About.dc.html" style="text-decoration: none; color: #1C2430">About 關於我們</a>
+      </nav>
+      <a href="Admissions.dc.html" style="padding: 12px 20px; background: #B8432F; border-radius: 4px; text-decoration: none; color: #FFFFFF; font-weight: 700; font-size: 14px">Register 報名</a>
+    </div>
+  </header>
+
+  <!-- title -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 24px; display: flex; flex-direction: column; gap: 14px">
+    <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">FAMILIES 家長專區</span>
+    <h1 style="margin: 0; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.1">2026–27 School Calendar 行事曆</h1>
+    <p style="margin: 0; font-size: 17px; color: #3D4654">Every Sunday not listed below: regular classes, 1:30–4:30pm at Cabin John Middle School.</p>
+  </section>
+
+  <!-- next up -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 12px 24px 32px">
+    <div style="background: #006274; color: #F7F3EC; display: flex; flex-wrap: wrap">
+      <img src="/_blob/864665dfceb15ba48878e004ed742afa" alt="Students racing on the track at Field Day 2025" style="flex: 1 1 300px; min-width: 0; height: 220px; object-fit: cover; display: block">
+      <div style="flex: 2 1 420px; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; gap: 8px">
+        <span style="font-size: 13px; letter-spacing: 0.12em; color: #BFE3DE; font-weight: 700">NEXT SUNDAY 下週日</span>
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 28px; font-weight: 700">Oct 18 · Field Day 運動會</span>
+        <span style="font-size: 16px; font-weight: 700; color: #FFD9CF">At Churchill HS — not Cabin John</span>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Winston+Churchill+High+School+Potomac+MD" style="color: #FFFFFF; font-weight: 700; margin-top: 4px">Directions →</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width: 1200px; margin: 0 auto; padding: 0 24px 96px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
+
+    <!-- list -->
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+      <div role="group" aria-label="Filter" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+          <button type="button" onClick="{{f.pick}}" aria-pressed="{{f.pressed}}" style="min-height: 44px; padding: 10px 18px; border-radius: 999px; border: 1.5px solid {{f.border}}; background: {{f.bg}}; color: {{f.fg}}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{f.label}}</button>
+        </sc-for>
+      </div>
+
+      <sc-for list="{{months}}" as="m" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; margin-bottom: 26px">
+          <h2 style="margin: 0 0 6px; font-family: 'Noto Serif TC', serif; font-size: 24px; font-weight: 700; padding-bottom: 10px; border-bottom: 2px solid #1C2430">{{m.label}}</h2>
+          <sc-for list="{{m.items}}" as="it" hint-placeholder-count="3">
+            <div style="display: flex; gap: 20px; align-items: center; padding: 16px 14px; border-bottom: 1px solid #E2D9C9; background: {{it.rowBg}}">
+              <div style="width: 56px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.1">
+                <span style="font-size: 12px; font-weight: 700; color: #5A6372">{{it.dow}}</span>
+                <span style="font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 900">{{it.day}}</span>
+              </div>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <span style="font-size: 17px; font-weight: 700">{{it.title}}</span>
+                <sc-if value="{{it.hasNote}}" hint-placeholder-val="{{false}}">
+                  <span style="font-size: 14px; color: #3D4654">{{it.note}}</span>
+                </sc-if>
+              </div>
+              <span style="flex-shrink: 0; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: {{it.tagBg}}; color: {{it.tagFg}}">{{it.tag}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- side -->
+    <aside style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 20px">
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 26px; display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Add to your phone 加入手機行事曆</h2>
+        <p style="margin: 0; font-size: 14px; color: #3D4654; line-height: 1.6">Subscribe once — changes like snow closures show up automatically.</p>
+        <a href="https://calendar.google.com/calendar/u/0/r?cid=wdctspta@gmail.com" style="padding: 14px 18px; background: #006274; color: #FFFFFF; text-decoration: none; font-weight: 700; text-align: center; border-radius: 4px">Google Calendar</a>
+        <a href="https://calendar.google.com/calendar/ical/wdctspta%40gmail.com/public/basic.ics" style="padding: 14px 18px; border: 1.5px solid #006274; color: #006274; text-decoration: none; font-weight: 700; text-align: center; border-radius: 4px">Apple / Outlook (.ics)</a>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 26px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+        <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Also for families</h2>
+        <a href="https://docs.google.com/spreadsheets/d/1a1Pb8z4dDutIXWYeqF_VPZSOgjcg8zEOSly50rg3r9w/edit?gid=1514295852#gid=1514295852" style="color: #006274; font-weight: 700">Class schedule &amp; rooms 課表教室 →</a>
+        <a href="https://docs.google.com/spreadsheets/d/1htQVvw_EwBvYotCKQ5Y98aQwnbdOc9BWjemqZc8QUfw/edit?gid=1586637407#gid=1586637407" style="color: #006274; font-weight: 700">Safety patrol rotation 導護輪值 →</a>
+        <a href="https://us20.campaign-archive.com/home/?u=a287f4181bf2cdb59a73c57a8&amp;id=781fe7e30c" style="color: #006274; font-weight: 700">Weekly announcements 每週公告 →</a>
+        <a href="https://docs.google.com/document/d/1MOR9fvbOISxmkkU_zP-ilL8hqQuWKnNHrqnD384PEkc/edit?tab=t.0" style="color: #006274; font-weight: 700">Official calendar (Google Doc) →</a>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #5A6372; line-height: 1.6">Source: WDCTS 2026–27 calendar, updated Sept 20, 2026. [Verify all dates before launch]</p>
+    </aside>
+  </section>
+
+  <footer style="background: #006274; color: #E6F2F1">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 48px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-size: 14px; line-height: 1.8">
+      <img src="/_blob/8e5386d4570b20b7dc223eb1a399c85f" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 96px; width: auto; display: block">
+      <span>Sundays 1:30–4:30pm · Cabin John MS, 10701 Gainsborough Rd, Potomac, MD 20854</span>
+    </div>
+  </footer>
+</div>
+<div class="m-only m-bar-space"></div>
+<nav class="m-only m-bar" aria-label="Quick actions">
+  <a href="Admissions.dc.html#tuition" style="border: 1.5px solid #006274; color: #006274">學費 Tuition</a>
+  <a href="mailto:wdcts.reg@gmail.com?subject=Visit%20a%20Sunday%20class" style="border: 1.5px solid #006274; color: #006274">參觀 Visit</a>
+  <a href="Admissions.dc.html" style="background: #B8432F; color: #FFFFFF">報名 Enroll</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'all' };
+  }
+  renderVals() {
+    const T = {
+      event: { tag: 'Event 活動', bg: '#FBE3DC', fg: '#8A2E1F' },
+      off: { tag: 'No school 停課', bg: '#1C2430', fg: '#FFFFFF' },
+      exam: { tag: 'Exam 考試', bg: '#DCEFEC', fg: '#00505E' },
+      term: { tag: 'Semester 學期', bg: '#006274', fg: '#FFFFFF' }
+    };
+    const raw = [
+      ['2026-08-30', 'term', 'First day of school 開學', ''],
+      ['2026-09-06', 'off', 'No school — Labor Day weekend', ''],
+      ['2026-09-20', 'event', 'Back to School', ''],
+      ['2026-09-27', 'event', 'Mid-Autumn Festival 中秋節慶祝', ''],
+      ['2026-10-18', 'event', 'Field Day 運動會', 'At Churchill HS — not Cabin John'],
+      ['2026-10-25', 'event', 'Costume Parade 變裝遊行', ''],
+      ['2026-11-01', 'exam', 'Midterm exams 期中考', 'Daylight saving time ends'],
+      ['2026-11-15', 'event', "Taiwan's iconic animals 台灣特有動物", ''],
+      ['2026-11-29', 'off', 'No school — Thanksgiving weekend', ''],
+      ['2026-12-06', 'event', 'Mandarin Open House & Taiwanese Talent Show', '華語班開放日 · 台語才藝表演'],
+      ['2026-12-13', 'event', 'Winter Solstice 冬至', ''],
+      ['2026-12-20', 'off', 'No youth classes', 'TCML adult classes online'],
+      ['2026-12-27', 'off', 'Winter break 寒假', ''],
+      ['2027-01-03', 'off', 'No youth classes', 'TCML adult classes online'],
+      ['2027-01-10', 'exam', 'Final exams 期末考', ''],
+      ['2027-01-17', 'off', 'No school — MLK weekend', ''],
+      ['2027-01-24', 'term', 'Spring semester begins 春季班開學', ''],
+      ['2027-02-07', 'event', 'Lunar New Year & Taiwan Fun 新年', ''],
+      ['2027-02-14', 'off', "No school — Presidents' Day weekend", ''],
+      ['2027-02-28', 'event', 'Taiwan Memorial Day 二二八紀念', ''],
+      ['2027-03-14', 'exam', 'Midterm exams 期中考', 'Daylight saving time begins'],
+      ['2027-03-28', 'off', 'Spring break 春假', ''],
+      ['2027-04-04', 'off', 'Spring break 春假', ''],
+      ['2027-04-11', 'event', "Taiwan Ancestors' Day", ''],
+      ['2027-04-25', 'event', 'Mandarin talent show 華語才藝表演', ''],
+      ['2027-05-09', 'event', "Mother's Day celebration 母親節", ''],
+      ['2027-05-23', 'exam', 'Final exams & Graduation 期末考・畢業典禮', ''],
+      ['2027-05-30', 'off', 'No school — Memorial Day weekend', ''],
+      ['2027-06-06', 'event', 'Picnic & Closing Ceremony 結業野餐', 'Summer break begins']
+    ];
+    const MONTHS = ['January 一月','February 二月','March 三月','April 四月','May 五月','June 六月','July 七月','August 八月','September 九月','October 十月','November 十一月','December 十二月'];
+    const filter = this.state.filter;
+    const months = [];
+    raw.forEach(([d, type, title, note]) => {
+      if (filter !== 'all' && filter !== type) return;
+      const [y, mo, da] = d.split('-').map(Number);
+      const label = MONTHS[mo - 1] + ' ' + y;
+      let g = months[months.length - 1];
+      if (!g || g.label !== label) { g = { label, items: [] }; months.push(g); }
+      const t = T[type];
+      g.items.push({
+        dow: 'SUN', day: String(da), title, note, hasNote: !!note,
+        tag: t.tag, tagBg: t.bg, tagFg: t.fg,
+        rowBg: d === '2026-10-18' ? '#FFF3D6' : 'transparent'
+      });
+    });
+    const defs = [['all', 'All 全部'], ['off', 'No school 停課'], ['event', 'Events 活動'], ['exam', 'Exams 考試']];
+    const filters = defs.map(([id, label]) => {
+      const on = filter === id;
+      return {
+        label, pressed: on ? 'true' : 'false',
+        bg: on ? '#1C2430' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C2430', border: on ? '#1C2430' : '#C9BFAE',
+        pick: () => this.setState({ filter: id })
+      };
+    });
+    return { months, filters };
+  }
+}
+</script>
+</body>
+</html>

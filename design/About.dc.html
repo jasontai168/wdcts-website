@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>About WDCTS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.m-only{display:none}
+@media (min-width: 768px){.acc-tog,.m-head input,.age-wrap input{display:none}}
+@media (max-width: 767px){
+  .m-only{display:block}
+  .d-only{display:none !important}
+  .pg-root{min-height:0 !important}
+  .m-head,.m-bar,.m-menu,.m-acc-head{font-family:'Noto Sans TC',system-ui,sans-serif}
+  .m-head{position:sticky;top:0;z-index:50;background:#F7F3EC;border-bottom:1px solid #E2D9C9}
+  .m-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px}
+  .m-burger{width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+  #m-menu-toggle:focus-visible ~ .m-head-row .m-burger{outline:3px solid #B8432F;outline-offset:2px}
+  .m-menu{display:none;border-top:1px solid #E2D9C9;background:#F7F3EC}
+  #m-menu-toggle:checked ~ .m-menu{display:block}
+  .m-menu a{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 20px;border-bottom:1px solid #EFE7DA;color:#1C2430;text-decoration:none;font-size:17px;font-weight:500}
+  .m-menu a[aria-current="page"]{color:#B8432F;font-weight:700}
+  .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#FFFFFF;border-top:1px solid #E2D9C9;box-shadow:0 -6px 20px rgba(28,36,48,.08)}
+  .m-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:6px;font-size:15px;font-weight:700;text-decoration:none}
+  .m-bar-space{height:76px}
+  .age-chip{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font-size:15px;font-weight:700;cursor:pointer;box-sizing:border-box}
+  .age-r{display:none}
+  .age-wrap:has(input:focus-visible) .age-chips{outline:3px solid #B8432F;outline-offset:4px;border-radius:12px}
+  .m-strip::-webkit-scrollbar{display:none}
+  .m-acc{border-top:1px solid #E2D9C9}
+  .m-acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:0 20px;background:#FFFFFF;color:#1C2430;font-size:18px;font-weight:700;cursor:pointer}
+  .m-acc-head .acc-plus{font-size:26px;font-weight:400;color:#006274;transition:transform .2s}
+  .acc-tog:checked ~ .m-acc-head .acc-plus{transform:rotate(45deg)}
+  .acc-tog:focus-visible ~ .m-acc-head{outline:3px solid #B8432F;outline-offset:-3px}
+  .acc-tog:not(:checked) ~ .m-acc-body{display:none}
+  .m-acc-body > section{padding-top:20px !important;padding-bottom:28px !important}
+  .m-acc-body > section > div{padding-top:8px !important;padding-bottom:8px !important}
+  .m-acc-last{border-bottom:1px solid #E2D9C9}
+  #age-toddler:checked ~ .age-chips label[for="age-toddler"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-toddler:checked ~ .age-results .r-toddler{display:block}
+  #age-three:checked ~ .age-chips label[for="age-three"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-three:checked ~ .age-results .r-three{display:block}
+  #age-k:checked ~ .age-chips label[for="age-k"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-k:checked ~ .age-results .r-k{display:block}
+  #age-elem:checked ~ .age-chips label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-elem:checked ~ .age-results .r-elem{display:block}
+  #age-mid:checked ~ .age-chips label[for="age-mid"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-mid:checked ~ .age-results .r-mid{display:block}
+  #age-high:checked ~ .age-chips label[for="age-high"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-high:checked ~ .age-results .r-high{display:block}
+  #age-adult:checked ~ .age-chips label[for="age-adult"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-adult:checked ~ .age-results .r-adult{display:block}
+
+  .age-wrap:not(:has(input:checked)) .r-elem{display:block}
+  .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+}
+</style>
+</helmet>
+<div>
+<div class="m-only m-head">
+  <input type="checkbox" id="m-menu-toggle" class="vh" aria-label="Open menu">
+  <div class="m-head-row">
+    <a href="Main.dc.html" aria-label="華府台灣學校 home"><img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 52px; width: auto; display: block"></a>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a href="Admissions.dc.html" style="padding: 10px 14px; background: #B8432F; color: #FFFFFF; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px">報名 Enroll</a>
+      <label for="m-menu-toggle" class="m-burger"><span class="vh">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></label>
+    </div>
+  </div>
+  <nav class="m-menu" aria-label="Main"><a href="Programs.dc.html">Programs 課程<span aria-hidden="true">›</span></a><a href="Admissions.dc.html">Admissions 報名<span aria-hidden="true">›</span></a><a href="Calendar.dc.html">Calendar 行事曆<span aria-hidden="true">›</span></a><a href="StudentLife.dc.html">Student Life 校園生活<span aria-hidden="true">›</span></a><a href="About.dc.html" aria-current="page">About 關於我們<span aria-hidden="true">›</span></a><a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" style="color: #B8432F">Donate 捐款<span aria-hidden="true">›</span></a></nav>
+</div>
+<div class="pg-root" style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; min-height: 6000px; overflow: hidden">
+
+  <!-- nav -->
+  <header class="d-only" style="border-bottom: 1px solid #E2D9C9; background: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="Main.dc.html" style="display: flex; align-items: center; text-decoration: none">
+        <img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 88px; width: auto; display: block">
+      </a>
+      <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 15px; font-weight: 500">
+        <a href="Programs.dc.html" style="text-decoration: none; color: #1C2430">Programs 課程</a>
+        <a href="Admissions.dc.html" style="text-decoration: none; color: #1C2430">Admissions 報名</a>
+        <a href="Calendar.dc.html" style="text-decoration: none; color: #1C2430">Calendar 行事曆</a>
+        <a href="StudentLife.dc.html" style="text-decoration: none; color: #1C2430">Student Life 校園生活</a>
+        <a href="About.dc.html" style="text-decoration: none; color: #B8432F; font-weight: 700">About 關於我們</a>
+      </nav>
+      <a href="Admissions.dc.html" style="padding: 12px 20px; background: #B8432F; border-radius: 4px; text-decoration: none; color: #FFFFFF; font-weight: 700; font-size: 14px">Register 報名</a>
+    </div>
+  </header>
+
+  <!-- jump nav -->
+  <div class="d-only" style="background: #EFE7DA; border-bottom: 1px solid #E2D9C9">
+    <nav aria-label="On this page" style="max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; flex-wrap: wrap; gap: 6px 24px; font-size: 14px; font-weight: 700">
+      <a href="#story" style="color: #006274">Our story 學校故事</a>
+      <a href="#principals" style="color: #006274">Principals 歷任校長</a>
+      <a href="#team" style="color: #006274">Leadership 行政團隊</a>
+      <a href="#partners" style="color: #006274">Partners 合作夥伴</a>
+      <a href="#contact" style="color: #006274">Contact 聯絡我們</a>
+    </nav>
+  </div>
+
+  <!-- hero / story -->
+  <section id="story" style="max-width: 1200px; margin: 0 auto; padding: 64px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+    <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+      <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">ABOUT 關於我們 · SINCE 1983</span>
+      <h1 style="margin: 0; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: clamp(36px, 4.6vw, 56px); line-height: 1.1">華府台灣學校</h1>
+      <p style="margin: 0; font-size: 15px; color: #5A6372">Washington DC Taiwanese School · Hoahuo Taioaan Haghau · Hua-fu Taiwan Hsueh-hsiao</p>
+      <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #3D4654">In 1983, a group of Taiwanese American families in the Washington area founded the Washington DC Taiwanese Language School — later renamed WDCTS — to pass Taiwanese languages, heritage and ways of life to the next generation, and to invite our American neighbors to experience them too.</p>
+      <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #3D4654">The first programs covered literature, martial arts and recreation 文、武、康樂. Today we teach students from 18 months to adults every Sunday afternoon in Potomac, MD, with fall and spring semesters.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; font-weight: 700">
+        <a href="https://www.youtube.com/watch?v=FCdhHdIWaMY" style="color: #006274">Watch our introduction video →</a>
+        <a href="https://en.wikipedia.org/wiki/Washington_DC_Taiwanese_School" style="color: #006274">WDCTS on Wikipedia →</a>
+      </div>
+    </div>
+    <figure style="flex: 1 1 420px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+      <img src="/_blob/2a0eae7c74429f9b0b421b1955c786a2" alt="WDCTS students, teachers and families in a group photo outdoors, 2014" style="width: 100%; height: 400px; object-fit: cover; display: block">
+      <figcaption style="font-size: 14px; color: #5A6372">WDCTS families, 2014</figcaption>
+    </figure>
+  </section>
+
+  <!-- what makes us special -->
+  <section style="background: #FFFFFF; border-top: 1px solid #E2D9C9; border-bottom: 1px solid #E2D9C9">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">台灣的語言與文化</span>
+        <span style="font-size: 15px; line-height: 1.7; color: #3D4654">Taiwanese and Mandarin taught side by side, in a warm setting where children absorb the culture naturally.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">家長、老師與學校的信任</span>
+        <span style="font-size: 15px; line-height: 1.7; color: #3D4654">A long tradition of close, trusting relationships between parents, teachers and staff — many of them volunteers.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">在社區裡表演、慶祝</span>
+        <span style="font-size: 15px; line-height: 1.7; color: #3D4654">Festivals, folk art and puppet shows — and our students perform at Taiwanese American events across the DC area.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- principals timeline -->
+  <div class="m-acc"><input type="checkbox" id="acc-principals" class="vh acc-tog"><label for="acc-principals" class="m-only m-acc-head"><span>歷任校長 Principals</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="principals" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 32px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">43 YEARS · 19 PRINCIPALS</span>
+        <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700">歷任校長 Our principals</h2>
+      </div>
+      <span style="font-size: 14px; color: #5A6372; max-width: 420px">Names in Chinese characters and Modern Literal Taiwanese (MTL) 台語現代文.</span>
+    </div>
+    <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 32px">
+      <sc-for list="{{principals}}" as="p" hint-placeholder-count="19">
+        <li style="display: flex; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid #E2D9C9">
+          <span style="width: 34px; flex-shrink: 0; font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; color: {{p.numColor}}">{{p.n}}</span>
+          <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+            <span style="font-family: 'Noto Serif TC', serif; font-size: 19px; font-weight: 700">{{p.name}} <span style="font-family: 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 400; color: #5A6372">{{p.mtl}}</span></span>
+            <span style="font-size: 13px; color: #5A6372">{{p.years}}</span>
+          </span>
+        </li>
+      </sc-for>
+    </ol>
+  </section></div></div>
+
+  <!-- leadership -->
+  <div class="m-acc"><input type="checkbox" id="acc-team" class="vh acc-tog"><label for="acc-team" class="m-only m-acc-head"><span>行政團隊 Leadership</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="team" style="background: #006274; color: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; gap: 36px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #BFE3DE; font-weight: 700">LEADERSHIP 行政團隊</span>
+        <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700">The people who run Sunday</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+        <div style="background: #F7F3EC; color: #1C2430; padding: 24px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">David Tang 唐伯禹</span><span style="font-size: 14px; color: #5A6372">Principal 校長</span></div>
+        <div style="background: #F7F3EC; color: #1C2430; padding: 24px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">Jesse Meng</span><span style="font-size: 14px; color: #5A6372">Vice Principal 副校長</span></div>
+        <div style="background: #F7F3EC; color: #1C2430; padding: 24px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700">Ting Liang</span><span style="font-size: 14px; color: #5A6372">Vice Principal &amp; Director of Registration</span></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; font-size: 15px; line-height: 1.9">
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 14px; letter-spacing: 0.1em; color: #BFE3DE">ACADEMICS</h3>
+          <div><strong>Wei-Hua Lee</strong> · Mandarin Program</div>
+          <div><strong>Jean Han</strong> · Taiwanese Program</div>
+          <div><strong>Imin Huang</strong> · TCML (Adult Mandarin)</div>
+          <div><strong>Ya-Chieh Chen</strong> · Academic Advisor</div>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 14px; letter-spacing: 0.1em; color: #BFE3DE">OPERATIONS</h3>
+          <div><strong>Amy Lin</strong> · Director of Culture</div>
+          <div><strong>Charles Tsai</strong> · Director of IT</div>
+          <div><strong>TehLin Lee</strong> · Director of Student Services</div>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 14px; letter-spacing: 0.1em; color: #BFE3DE">ACTIVITIES</h3>
+          <div><strong>Emily Yang</strong> · Events Director</div>
+          <div><strong>Linda Lu, Sunny Jeffers</strong> · Events Vice Directors</div>
+          <div><strong>June Cooper</strong> · School Teams Director</div>
+          <div><strong>Huei-Ting Tsai</strong> · School Teams Vice Director</div>
+        </div>
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 14px; letter-spacing: 0.1em; color: #BFE3DE">SCHOOL ADVISORS</h3>
+          <div><strong>Kuei-Ling Chen</strong></div>
+          <div><strong>Nicki Yu-Ping Chen</strong></div>
+        </div>
+      </div>
+      <a href="https://wdcts.org/faculty/" style="align-self: flex-start; padding: 14px 22px; border: 1.5px solid #BFE3DE; color: #FFFFFF; text-decoration: none; font-weight: 700; border-radius: 4px">Faculty Corner 教師專區 →</a>
+    </div>
+  </section></div></div>
+
+  <!-- partners -->
+  <div class="m-acc m-acc-last"><input type="checkbox" id="acc-partners" class="vh acc-tog"><label for="acc-partners" class="m-only m-acc-head"><span>合作夥伴 Partners</span><span class="acc-plus" aria-hidden="true">+</span></label><div class="m-acc-body"><section id="partners" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <span class="d-only" style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">PARTNERS 合作夥伴</span>
+      <h2 class="d-only" style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700">We don't do this alone</h2>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px">
+      <div style="flex: 2 1 460px; background: #FFFFFF; border: 1px solid #E2D9C9; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-size: 13px; font-weight: 700; color: #B8432F">OUR SPONSOR · EST. 1982</span>
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 24px">Taiwanese Youth Arts Foundation (TYAF)<br>台灣人青少年才藝基金會</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #3D4654">The nonprofit that operates WDCTS. TYAF gives young Taiwanese Americans the chance to learn about and share Taiwanese culture — sponsoring the Outstanding Taiwanese American Youth Awards, the school's Lunar New Year party, Heritage Week, Mother's Day and Winter Solstice events, puppet shows, and community causes such as standing up against AAPI hate and disaster relief.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; font-weight: 700"><a href="https://tyafdc.org/" style="color: #006274">tyafdc.org →</a><a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" style="color: #B8432F">Donate to TYAF →</a></div>
+      </div>
+      <div style="flex: 1 1 300px; background: #FFFFFF; border: 1px solid #E2D9C9; padding: 32px; display: flex; flex-direction: column; gap: 12px">
+        <span style="font-size: 13px; font-weight: 700; color: #B8432F">PARENTS</span>
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 24px">WDCTS PTA<br>華府台灣學校家長會</h3>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-weight: 700"><a href="https://wdcts.ptboard.com/" style="color: #006274">PTA website →</a><a href="https://www.facebook.com/groups/wdctspta" style="color: #006274">PTA Facebook group →</a><a href="mailto:wdctspta@gmail.com" style="color: #006274">wdctspta@gmail.com</a></div>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px">
+      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 12px">
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px">Community partners 社區夥伴</h3>
+        <a href="https://taagwc.org/" style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 16px 20px; color: #1C2430; text-decoration: none"><strong>Taiwanese Association of America, Greater Washington</strong><br><span style="font-size: 14px; color: #5A6372">華府台灣同鄉會</span></a>
+        <a href="https://taigie.taioaan.org/" style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 16px 20px; color: #1C2430; text-decoration: none"><strong>Modern Taiwanese Language Foundation</strong><br><span style="font-size: 14px; color: #5A6372">文書法協會</span></a>
+        <a href="https://tacpa.org/" style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 16px 20px; color: #1C2430; text-decoration: none"><strong>Taiwanese American Computer Professional Association</strong><br><span style="font-size: 14px; color: #5A6372">台美人電腦協會</span></a>
+      </div>
+      <div style="flex: 1 1 360px; background: #EFE7DA; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px">Learn Taiwanese at home 台語學習資源</h3>
+        <a href="https://learntaiwanese.org/english/jixtiern/match.php" style="color: #006274; font-weight: 700">MTL dictionary 台語字典 →</a>
+        <a href="https://wdcts.org/wp-content/uploads/2025/12/introduction.pdf" style="color: #006274; font-weight: 700">MTL alphabet &amp; introduction (PDF) →</a>
+        <a href="https://wdcts.org/wp-content/uploads/2025/12/Taiwanese7Tones.pdf" style="color: #006274; font-weight: 700">Taiwanese 7 tones 七聲調 (PDF) →</a>
+        <a href="https://wdcts.org/wp-content/uploads/2025/12/Handouts.pdf" style="color: #006274; font-weight: 700">Useful handout (PDF) →</a>
+        <a href="https://learntaiwanese.org/english/articles.html" style="color: #006274; font-weight: 700">Example articles →</a>
+      </div>
+    </div>
+  </section></div></div>
+
+  <!-- contact -->
+  <section id="contact" style="background: #1C2430; color: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; gap: 32px">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 13px; letter-spacing: 0.12em; color: #E8A897; font-weight: 700">CONTACT 聯絡我們</span>
+        <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700">Come say hi on a Sunday</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; font-size: 15px; line-height: 1.8">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <h3 style="margin: 0 0 6px; font-size: 14px; letter-spacing: 0.1em; color: #E8A897">WHERE &amp; WHEN</h3>
+          <span>Sundays 1:30–4:30pm</span>
+          <span>Cabin John Middle School<br>10701 Gainsborough Rd, Potomac, MD 20854</span>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Cabin+John+Middle+School+10701+Gainsborough+Rd+Potomac+MD" style="color: #FFFFFF; font-weight: 700">Get directions →</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <h3 style="margin: 0 0 6px; font-size: 14px; letter-spacing: 0.1em; color: #E8A897">EMAIL</h3>
+          <span>Principal 校長<br><a href="mailto:wdcts.principal@gmail.com" style="color: #FFFFFF; font-weight: 700">wdcts.principal@gmail.com</a></span>
+          <span>Registration 註冊<br><a href="mailto:wdcts.reg@gmail.com" style="color: #FFFFFF; font-weight: 700">wdcts.reg@gmail.com</a></span>
+          <span>TYAF / PTA<br><a href="mailto:wdctspta@gmail.com" style="color: #FFFFFF; font-weight: 700">wdctspta@gmail.com</a></span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <h3 style="margin: 0 0 6px; font-size: 14px; letter-spacing: 0.1em; color: #E8A897">MAIL &amp; DONATIONS</h3>
+          <span>Checks payable to <strong>TYAF</strong><br>P.O. Box 341384, Bethesda, MD 20827</span>
+          <a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" style="align-self: flex-start; margin-top: 8px; padding: 12px 20px; background: #B8432F; color: #FFFFFF; text-decoration: none; font-weight: 700; border-radius: 4px">Donate online 線上捐款</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <h3 style="margin: 0 0 6px; font-size: 14px; letter-spacing: 0.1em; color: #E8A897">FOLLOW</h3>
+          <a href="https://www.facebook.com/WDCTS" style="color: #FFFFFF">Facebook</a>
+          <a href="https://www.facebook.com/groups/wdctspta" style="color: #FFFFFF">PTA group</a>
+          <a href="https://us20.campaign-archive.com/home/?u=a287f4181bf2cdb59a73c57a8&amp;id=781fe7e30c" style="color: #FFFFFF">Weekly announcements</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #006274; color: #E6F2F1">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-size: 14px; line-height: 1.8">
+      <img src="/_blob/8e5386d4570b20b7dc223eb1a399c85f" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 96px; width: auto; display: block">
+      <span>© 2026 Washington DC Taiwanese School · Operated by TYAF</span>
+    </div>
+  </footer>
+</div>
+<div class="m-only m-bar-space"></div>
+<nav class="m-only m-bar" aria-label="Quick actions">
+  <a href="Admissions.dc.html#tuition" style="border: 1.5px solid #006274; color: #006274">學費 Tuition</a>
+  <a href="mailto:wdcts.reg@gmail.com?subject=Visit%20a%20Sunday%20class" style="border: 1.5px solid #006274; color: #006274">參觀 Visit</a>
+  <a href="Admissions.dc.html" style="background: #B8432F; color: #FFFFFF">報名 Enroll</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const list = [
+      ['1983–84', '莊六雄', "Zngf Liog'hioong"],
+      ['1984–85', '馮昭卿', 'Paang Ciaukhefng'],
+      ['1985–86', '紀華山', 'Kiie Hoasafn'],
+      ['1986–87', '謝淑貞', 'Cia Siokzefng'],
+      ['1987–88', '楊基定', 'Viuu Kiteng'],
+      ['1988–90', '邵媛子', 'Siau Oaxnzuo'],
+      ['1990–92', '黃顯臻', 'Ngg Hiefncyn'],
+      ['1992–93', '李美芳', 'Liie Byhofng'],
+      ['1993–95', '馮昭卿', 'Paang Ciaukhefng'],
+      ['1995–96', '高健元', 'Køf Kiexngoaan'],
+      ['1996–97', '賴國龍', 'Loa Koklioong'],
+      ['1997–99', '李宗洲', 'Liie Zongciw'],
+      ['1999–2000', '吳倍茂', 'Gvoo Poexbo'],
+      ['2000–01', '陳瑞寶', 'Taan Suixpør'],
+      ['2001–03', '張敏鈴', 'Tviw Bynleeng'],
+      ['2003–04', '許福連', 'Khor Hoklieen'],
+      ['2004–05', '蔡心怡', "Zhoax Sim'ii"],
+      ['2005–19', '陳桂鈴', 'Taan Kuieleeng'],
+      ['2019–today', '唐伯禹', "Toong Pek'uo · David Tang"]
+    ];
+    const principals = list.map(([years, name, mtl], i) => ({
+      n: String(i + 1), years, name, mtl,
+      numColor: i === list.length - 1 ? '#B8432F' : '#006274'
+    }));
+    return { principals };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>WDCTS Student Life</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Noto+Serif+TC:wght@500;700;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.m-only{display:none}
+@media (min-width: 768px){.acc-tog,.m-head input,.age-wrap input{display:none}}
+@media (max-width: 767px){
+  .m-only{display:block}
+  .d-only{display:none !important}
+  .pg-root{min-height:0 !important}
+  .m-head,.m-bar,.m-menu,.m-acc-head{font-family:'Noto Sans TC',system-ui,sans-serif}
+  .m-head{position:sticky;top:0;z-index:50;background:#F7F3EC;border-bottom:1px solid #E2D9C9}
+  .m-head-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px}
+  .m-burger{width:48px;height:48px;border:1.5px solid #C9BFAE;border-radius:6px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-sizing:border-box}
+  #m-menu-toggle:focus-visible ~ .m-head-row .m-burger{outline:3px solid #B8432F;outline-offset:2px}
+  .m-menu{display:none;border-top:1px solid #E2D9C9;background:#F7F3EC}
+  #m-menu-toggle:checked ~ .m-menu{display:block}
+  .m-menu a{display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 20px;border-bottom:1px solid #EFE7DA;color:#1C2430;text-decoration:none;font-size:17px;font-weight:500}
+  .m-menu a[aria-current="page"]{color:#B8432F;font-weight:700}
+  .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#FFFFFF;border-top:1px solid #E2D9C9;box-shadow:0 -6px 20px rgba(28,36,48,.08)}
+  .m-bar a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:6px;font-size:15px;font-weight:700;text-decoration:none}
+  .m-bar-space{height:76px}
+  .age-chip{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;border:1.5px solid #C9BFAE;background:#FFFFFF;color:#1C2430;font-size:15px;font-weight:700;cursor:pointer;box-sizing:border-box}
+  .age-r{display:none}
+  .age-wrap:has(input:focus-visible) .age-chips{outline:3px solid #B8432F;outline-offset:4px;border-radius:12px}
+  .m-strip::-webkit-scrollbar{display:none}
+  .m-acc{border-top:1px solid #E2D9C9}
+  .m-acc-head{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;padding:0 20px;background:#FFFFFF;color:#1C2430;font-size:18px;font-weight:700;cursor:pointer}
+  .m-acc-head .acc-plus{font-size:26px;font-weight:400;color:#006274;transition:transform .2s}
+  .acc-tog:checked ~ .m-acc-head .acc-plus{transform:rotate(45deg)}
+  .acc-tog:focus-visible ~ .m-acc-head{outline:3px solid #B8432F;outline-offset:-3px}
+  .acc-tog:not(:checked) ~ .m-acc-body{display:none}
+  .m-acc-body > section{padding-top:20px !important;padding-bottom:28px !important}
+  .m-acc-body > section > div{padding-top:8px !important;padding-bottom:8px !important}
+  .m-acc-last{border-bottom:1px solid #E2D9C9}
+  #age-toddler:checked ~ .age-chips label[for="age-toddler"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-toddler:checked ~ .age-results .r-toddler{display:block}
+  #age-three:checked ~ .age-chips label[for="age-three"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-three:checked ~ .age-results .r-three{display:block}
+  #age-k:checked ~ .age-chips label[for="age-k"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-k:checked ~ .age-results .r-k{display:block}
+  #age-elem:checked ~ .age-chips label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-elem:checked ~ .age-results .r-elem{display:block}
+  #age-mid:checked ~ .age-chips label[for="age-mid"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-mid:checked ~ .age-results .r-mid{display:block}
+  #age-high:checked ~ .age-chips label[for="age-high"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-high:checked ~ .age-results .r-high{display:block}
+  #age-adult:checked ~ .age-chips label[for="age-adult"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  #age-adult:checked ~ .age-results .r-adult{display:block}
+
+  .age-wrap:not(:has(input:checked)) .r-elem{display:block}
+  .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+}
+</style>
+</helmet>
+<div>
+<div class="m-only m-head">
+  <input type="checkbox" id="m-menu-toggle" class="vh" aria-label="Open menu">
+  <div class="m-head-row">
+    <a href="Main.dc.html" aria-label="華府台灣學校 home"><img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 52px; width: auto; display: block"></a>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <a href="Admissions.dc.html" style="padding: 10px 14px; background: #B8432F; color: #FFFFFF; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 14px">報名 Enroll</a>
+      <label for="m-menu-toggle" class="m-burger"><span class="vh">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1C2430" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></label>
+    </div>
+  </div>
+  <nav class="m-menu" aria-label="Main"><a href="Programs.dc.html">Programs 課程<span aria-hidden="true">›</span></a><a href="Admissions.dc.html">Admissions 報名<span aria-hidden="true">›</span></a><a href="Calendar.dc.html">Calendar 行事曆<span aria-hidden="true">›</span></a><a href="StudentLife.dc.html" aria-current="page">Student Life 校園生活<span aria-hidden="true">›</span></a><a href="About.dc.html">About 關於我們<span aria-hidden="true">›</span></a><a href="https://checkout.square.site/merchant/ML2AVVN9J2SJ5/checkout/54O3INRRVL37KW3KC7OTRC7X" style="color: #B8432F">Donate 捐款<span aria-hidden="true">›</span></a></nav>
+</div>
+<div class="pg-root" style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; min-height: 5200px; overflow: hidden">
+
+  <!-- nav -->
+  <header class="d-only" style="border-bottom: 1px solid #E2D9C9; background: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <a href="Main.dc.html" style="display: flex; align-items: center; text-decoration: none">
+        <img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 88px; width: auto; display: block">
+      </a>
+      <nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 4px 28px; font-size: 15px; font-weight: 500">
+        <a href="Programs.dc.html" style="text-decoration: none; color: #1C2430">Programs 課程</a>
+        <a href="Admissions.dc.html" style="text-decoration: none; color: #1C2430">Admissions 報名</a>
+        <a href="Calendar.dc.html" style="text-decoration: none; color: #1C2430">Calendar 行事曆</a>
+        <a href="StudentLife.dc.html" style="text-decoration: none; color: #B8432F; font-weight: 700">Student Life 校園生活</a>
+        <a href="About.dc.html" style="text-decoration: none; color: #1C2430">About 關於我們</a>
+      </nav>
+      <a href="Admissions.dc.html" style="padding: 12px 20px; background: #B8432F; border-radius: 4px; text-decoration: none; color: #FFFFFF; font-weight: 700; font-size: 14px">Register 報名</a>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <section style="position: relative; background: #1C2430">
+    <img src="/_blob/cc203e05a121dd0dcb02f4ca5f0cb653" alt="WDCTS dragon boat teams celebrating on the Potomac waterfront, 2025" style="width: 100%; height: 520px; object-fit: cover; object-position: center 45%; display: block; opacity: 0.55">
+    <div style="position: absolute; inset: 0; display: flex; align-items: flex-end">
+      <div style="max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 24px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; color: #FFFFFF">
+        <span style="font-size: 13px; letter-spacing: 0.12em; font-weight: 700; color: #FFD9CF">STUDENT LIFE 校園生活</span>
+        <h1 style="margin: 0; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: clamp(36px, 5vw, 64px); line-height: 1.1">Culture you live,<br>not just learn.</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.7; max-width: 620px">Festivals, performances, clubs and two championship dragon boat teams — the parts of Sunday students remember most.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- activities -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px 40px">
+    <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">CLUBS &amp; ACTIVITIES 才藝社團</span>
+    <h2 style="margin: 8px 0 28px; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700">Something for every kid</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 28px; display: flex; flex-direction: column; gap: 12px; border-top: 4px solid #B8432F">
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 22px">Arts &amp; Culture</h3>
+        <span style="font-size: 16px; line-height: 1.8; color: #3D4654">Art 美術<br>Crafts 工藝<br>Calligraphy 書法<br>Dr. Liang Summer Camp 梁博士夏令營</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 28px; display: flex; flex-direction: column; gap: 12px; border-top: 4px solid #006274">
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 22px">Movement</h3>
+        <span style="font-size: 16px; line-height: 1.8; color: #3D4654">Dragon Boat 龍舟<br>Dance 舞蹈<br>Diabolo 扯鈴<br>Basketball 籃球 · Pickleball 匹克球 · Karate 空手道</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 28px; display: flex; flex-direction: column; gap: 12px; border-top: 4px solid #4DB7A9">
+        <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 22px">Strategy &amp; Skills</h3>
+        <span style="font-size: 16px; line-height: 1.8; color: #3D4654">Chess Club 棋社<br>Guzheng 古箏<br>Percussion 打擊樂</span>
+      </div>
+    </div>
+    <a href="Admissions.dc.html" style="display: inline-block; margin-top: 20px; color: #006274; font-weight: 700">Class times &amp; fees →</a>
+  </section>
+
+  <!-- festivals -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px">
+    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+      <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 16px">
+        <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">FESTIVALS &amp; TRADITIONS 節慶</span>
+        <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700; line-height: 1.25">A school year built around Taiwanese celebrations.</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="background: #FBE3DC; padding: 16px"><strong style="display: block; font-family: 'Noto Serif TC', serif; font-size: 18px">新年</strong><span style="font-size: 14px; color: #3D4654">Lunar New Year</span></div>
+          <div style="background: #DCEFEC; padding: 16px"><strong style="display: block; font-family: 'Noto Serif TC', serif; font-size: 18px">端午節</strong><span style="font-size: 14px; color: #3D4654">Dragon Boat Festival</span></div>
+          <div style="background: #FCEBC4; padding: 16px"><strong style="display: block; font-family: 'Noto Serif TC', serif; font-size: 18px">中秋節</strong><span style="font-size: 14px; color: #3D4654">Mid-Autumn Festival</span></div>
+          <div style="background: #EFE7DA; padding: 16px"><strong style="display: block; font-family: 'Noto Serif TC', serif; font-size: 18px">冬至</strong><span style="font-size: 14px; color: #3D4654">Winter Solstice</span></div>
+        </div>
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: #3D4654">We also remember our history — <strong>2-28 Memorial Day</strong> and <strong>Taiwan Human Rights Day</strong> — and share our heritage with neighbors at the <strong>Rockville Bubble Tea Festival</strong>.</p>
+      </div>
+      <img src="/_blob/431f9df1310c5e895bec137795e96922" alt="Taiwanese drum performance on stage, 2024" style="flex: 1 1 420px; min-width: 0; width: 100%; height: 420px; object-fit: cover; display: block">
+    </div>
+  </section>
+
+  <!-- dragon boat -->
+  <section id="dragonboat" style="background: #006274; color: #F7F3EC">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: flex; flex-direction: column; gap: 32px">
+      <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-end">
+        <div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 14px">
+          <span style="font-size: 13px; letter-spacing: 0.12em; font-weight: 700; color: #BFE3DE">DRAGON BOAT 龍舟隊 · SINCE 2007</span>
+          <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 40px; font-weight: 700; line-height: 1.2">Humpbacks &amp; Belugas</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCEFEC">Two whale-themed crews race every year at the DC Dragon Boat Festival on the Potomac: the adult <strong style="color: #FFFFFF">Humpbacks</strong> bring strength and experience, the youth <strong style="color: #FFFFFF">Belugas</strong> bring the energy.</p>
+        </div>
+        <a href="mailto:wdcts.principal@gmail.com?subject=Joining%20the%20dragon%20boat%20team" style="padding: 16px 24px; background: #F7F3EC; color: #1C2430; text-decoration: none; font-weight: 700; border-radius: 4px">Join a crew →</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+        <div style="border: 1px solid #2A7C8C; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900">4×</span><span style="font-size: 14px; color: #DCEFEC">Education Cup winners, Humpbacks (2019, 2022–24)</span></div>
+        <div style="border: 1px solid #2A7C8C; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900">0:47.90</span><span style="font-size: 14px; color: #DCEFEC">Belugas' fastest 200m, Youth Cup 2025</span></div>
+        <div style="border: 1px solid #2A7C8C; padding: 20px; display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900">2008</span><span style="font-size: 14px; color: #DCEFEC">First gold medals — 250m and 500m, C Major</span></div>
+      </div>
+
+      <div style="background: #F7F3EC; color: #1C2430; padding: 28px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+          <h3 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 22px">Race results 歷年成績</h3>
+          <div role="group" aria-label="Choose a year" style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{years}}" as="y" hint-placeholder-count="6">
+              <button type="button" onClick="{{y.pick}}" aria-pressed="{{y.pressed}}" style="min-height: 44px; min-width: 64px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid {{y.border}}; background: {{y.bg}}; color: {{y.fg}}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{y.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 600px; border-collapse: collapse; font-size: 15px">
+            <thead>
+              <tr style="text-align: left; border-bottom: 2px solid #1C2430">
+                <th scope="col" style="padding: 10px 12px 10px 0">Crew</th>
+                <th scope="col" style="padding: 10px 12px">Race</th>
+                <th scope="col" style="padding: 10px 12px">Place</th>
+                <th scope="col" style="padding: 10px 0 10px 12px; text-align: right">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+                <tr style="border-bottom: 1px solid #E2D9C9; background: {{r.bg}}">
+                  <td style="padding: 12px 12px 12px 0; font-weight: 700; color: {{r.crewColor}}">{{r.crew}}</td>
+                  <td style="padding: 12px">{{r.race}}</td>
+                  <td style="padding: 12px; font-weight: {{r.weight}}">{{r.place}}</td>
+                  <td style="padding: 12px 0 12px 12px; text-align: right; font-variant-numeric: tabular-nums">{{r.time}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #5A6372">Earlier years: one WDCTS crew from 2007; gold medals in 2008, 2016, 2017 and 2018. No races 2009–2015 or 2020–2021.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- gallery -->
+  <section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px">
+    <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">GALLERY 相簿</span>
+    <h2 style="margin: 8px 0 28px; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700">Moments from recent years</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px"><img src="/_blob/df470524fb3a56a22236fecef1c374ed" alt="Students singing at the 40th anniversary celebration" style="width: 100%; height: 240px; object-fit: cover; display: block"><figcaption style="font-size: 14px; color: #3D4654">2023 · 40th anniversary 四十週年</figcaption></figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px"><img src="/_blob/c2e858443697592f432d59a9286ddbbb" alt="Students in costumes at the Halloween parade" style="width: 100%; height: 240px; object-fit: cover; display: block"><figcaption style="font-size: 14px; color: #3D4654">2024 · Halloween parade 變裝遊行</figcaption></figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px"><img src="/_blob/864665dfceb15ba48878e004ed742afa" alt="Students racing on the track at Field Day" style="width: 100%; height: 240px; object-fit: cover; display: block"><figcaption style="font-size: 14px; color: #3D4654">2025 · Field Day 運動會</figcaption></figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px"><img src="/_blob/0bfa503cc945f837747dbfa1566ba37a" alt="A student-made Taiwan culture display board" style="width: 100%; height: 240px; object-fit: cover; display: block"><figcaption style="font-size: 14px; color: #3D4654">2024 · Taiwan Fun</figcaption></figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px"><img src="/_blob/f783f3fa91412e9a1c93a5f495fb13d7" alt="Students and teachers at summer camp" style="width: 100%; height: 240px; object-fit: cover; display: block"><figcaption style="font-size: 14px; color: #3D4654">2025 · Dr. Liang Summer Camp 夏令營</figcaption></figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px"><img src="/_blob/d364a92b4303dd4ce38f287e74a393d2" alt="Families at a hands-on cultural activity table" style="width: 100%; height: 240px; object-fit: cover; object-position: center 55%; display: block"><figcaption style="font-size: 14px; color: #3D4654">2025 · Lunar New Year 新年活動</figcaption></figure>
+    </div>
+    <a href="https://www.facebook.com/WDCTS" style="display: inline-block; margin-top: 24px; color: #006274; font-weight: 700">More photos on Facebook →</a>
+  </section>
+
+  <footer style="background: #006274; color: #E6F2F1">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; font-size: 14px; line-height: 1.8">
+      <img src="/_blob/8e5386d4570b20b7dc223eb1a399c85f" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 96px; width: auto; display: block">
+      <span>Sundays 1:30–4:30pm · Cabin John MS, 10701 Gainsborough Rd, Potomac, MD 20854</span>
+    </div>
+  </footer>
+</div>
+<div class="m-only m-bar-space"></div>
+<nav class="m-only m-bar" aria-label="Quick actions">
+  <a href="Admissions.dc.html#tuition" style="border: 1.5px solid #006274; color: #006274">學費 Tuition</a>
+  <a href="mailto:wdcts.reg@gmail.com?subject=Visit%20a%20Sunday%20class" style="border: 1.5px solid #006274; color: #006274">參觀 Visit</a>
+  <a href="Admissions.dc.html" style="background: #B8432F; color: #FFFFFF">報名 Enroll</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { year: '2026' };
+  }
+  renderVals() {
+    const H = 'Humpbacks', B = 'Belugas';
+    const data = {
+      '2026': [[H,'Education Cup 200m','2nd','0:56.09'],[H,'Festival Open 200m, A Minor','2nd','1:00.45'],[H,'Festival Open 500m, A Minor','4th','2:23.75'],[B,'Youth Cup 200m','Silver','0:56.11'],[B,'Festival Mixed 200m, A Minor','2nd','0:56.79'],[B,'Festival Mixed 500m, A Minor','4th','2:13.64']],
+      '2025': [[H,'Education Cup 200m','2nd','0:56.13'],[H,'Festival Mixed 200m, B Major','Gold','0:53.43'],[B,'Youth Cup 200m','Silver','0:47.90'],[B,'Festival Mixed 200m, A Major','Gold','0:50.29'],[B,'DC Championship 200m','3rd','0:50.91']],
+      '2024': [[H,'Education Cup 200m','Cup Winner','0:54.387'],[H,'Festival Mixed 200m, A Minor','3rd','0:55.289'],[H,'Festival Mixed 500m, A Minor','4th','2:35.677'],[H,'DC Championship 200m','4th','0:54.922'],[B,'Youth Cup 200m','Silver','0:54.149'],[B,'Festival Mixed 200m, A Major','Gold','0:49.433'],[B,'Festival Mixed 500m, A Minor','3rd','2:32.740']],
+      '2023': [[H,'Education Cup 200m','Cup Winner','0:58.180'],[H,'Festival Mixed 200m, A Major','Silver','0:58.900'],[H,'Festival Mixed 500m, A Minor','2nd','2:33.370'],[H,'DC Championship 200m','4th','0:54.564'],[B,'Youth Cup 200m','2nd','1:00.830'],[B,'Festival Mixed 200m, B Major','Silver','1:01.870'],[B,'Festival Mixed 500m, B Major','Gold','2:37.900']],
+      '2022': [[H,'Education Cup 200m','Cup Winner','0:51.196'],[H,'Festival Mixed 200m, A Major','Bronze','0:53.381'],[H,'Festival Mixed 500m, B Major','Gold','2:39.020'],[H,'DC Championship 200m','Bronze','0:51.196'],[B,'Youth Cup 200m','2nd','0:59.764'],[B,'Festival Mixed 200m, B Minor','Gold','0:58.640'],[B,'Festival Mixed 500m, B Minor','Gold','2:45.303']],
+      '2019': [[H,'Education Cup 250m','Cup Winner','1:18.799'],[H,'Festival Mixed 250m, A Minor','2nd','1:18.247'],[H,'Festival Mixed 500m, A Minor','3rd','2:51.493'],[H,'DC Championship 250m','Bronze','1:09.877'],[B,'Youth Cup 250m','2nd','1:20.727'],[B,'Festival Mixed 250m, B Major','Bronze','1:23.616'],[B,'Festival Mixed 500m, B Minor','Gold','2:43.303']]
+    };
+    const year = this.state.year;
+    const rows = (data[year] || []).map(([crew, race, place, time]) => {
+      const top = place === 'Gold' || place === 'Cup Winner';
+      return {
+        crew, race, place, time,
+        bg: top ? '#FFF3D6' : 'transparent',
+        weight: top ? '700' : '400',
+        crewColor: crew === H ? '#006274' : '#B8432F'
+      };
+    });
+    const years = Object.keys(data).sort((a, b) => b - a).map((y) => {
+      const on = y === year;
+      return {
+        label: y, pressed: on ? 'true' : 'false',
+        bg: on ? '#1C2430' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1C2430', border: on ? '#1C2430' : '#C9BFAE',
+        pick: () => this.setState({ year: y })
+      };
+    });
+    return { rows, years };
+  }
+}
+</script>
+</body>
+</html>
