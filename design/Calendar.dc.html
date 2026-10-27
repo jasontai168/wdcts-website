@@ -61,6 +61,9 @@ body{margin:0}
 
   .age-wrap:not(:has(input:checked)) .r-elem{display:block}
   .age-wrap:not(:has(input:checked)) label[for="age-elem"]{background:#006274;border-color:#006274;color:#FFFFFF}
+  .cal-row{display:grid !important;grid-template-columns:52px 1fr;column-gap:14px !important;row-gap:8px;padding:14px 4px !important}
+  .cal-row > div:first-child{grid-row:span 2;width:52px !important}
+  .cal-row > span:last-child{justify-self:start}
 }
 </style>
 </helmet>
@@ -79,7 +82,7 @@ body{margin:0}
 <div class="pg-root" style="font-family: 'Noto Sans TC', system-ui, sans-serif; color: #1C2430; background: #F7F3EC; width: 100%; min-height: 4400px; overflow: hidden">
 
   <!-- nav -->
-  <header class="d-only" style="border-bottom: 1px solid #E2D9C9; background: #F7F3EC">
+  <header class="d-only" style="background: #F7F3EC">
     <div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
       <a href="Main.dc.html" style="display: flex; align-items: center; text-decoration: none">
         <img src="/_blob/4dd9e5e4b3fbf0c2eff121f547a6c1eb" alt="Washington DC Taiwanese School 華府台灣學校" style="height: 88px; width: auto; display: block">
@@ -97,8 +100,8 @@ body{margin:0}
 
   <!-- title -->
   <section style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 24px; display: flex; flex-direction: column; gap: 14px">
-    <span style="font-size: 13px; letter-spacing: 0.12em; color: #B8432F; font-weight: 700">FAMILIES 家長專區</span>
     <h1 style="margin: 0; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: clamp(34px, 4.4vw, 54px); line-height: 1.1">2026–27 School Calendar 行事曆</h1>
+    <span style="display: block; font-size: 15px; font-weight: 700; color: #A23B29">Families 家長專區</span>
     <p style="margin: 0; font-size: 17px; color: #3D4654">Every Sunday not listed below: regular classes, 1:30–4:30pm at Cabin John Middle School.</p>
   </section>
 
@@ -107,7 +110,7 @@ body{margin:0}
     <div style="background: #006274; color: #F7F3EC; display: flex; flex-wrap: wrap">
       <img src="/_blob/864665dfceb15ba48878e004ed742afa" alt="Students racing on the track at Field Day 2025" style="flex: 1 1 300px; min-width: 0; height: 220px; object-fit: cover; display: block">
       <div style="flex: 2 1 420px; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; gap: 8px">
-        <span style="font-size: 13px; letter-spacing: 0.12em; color: #BFE3DE; font-weight: 700">NEXT SUNDAY 下週日</span>
+        <span style="font-size: 15px; color: #BFE3DE; font-weight: 700">Next Sunday 下週日</span>
         <span style="font-family: 'Noto Serif TC', serif; font-size: 28px; font-weight: 700">Oct 18 · Field Day 運動會</span>
         <span style="font-size: 16px; font-weight: 700; color: #FFD9CF">At Churchill HS — not Cabin John</span>
         <a href="https://www.google.com/maps/search/?api=1&amp;query=Winston+Churchill+High+School+Potomac+MD" style="color: #FFFFFF; font-weight: 700; margin-top: 4px">Directions →</a>
@@ -149,13 +152,13 @@ body{margin:0}
 
     <!-- side -->
     <aside style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 20px">
-      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 26px; display: flex; flex-direction: column; gap: 12px">
+      <div style="background: #FFFFFF; padding: 26px; display: flex; flex-direction: column; gap: 12px">
         <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Add to your phone 加入手機行事曆</h2>
         <p style="margin: 0; font-size: 14px; color: #3D4654; line-height: 1.6">Subscribe once — changes like snow closures show up automatically.</p>
         <a href="https://calendar.google.com/calendar/u/0/r?cid=wdctspta@gmail.com" style="padding: 14px 18px; background: #006274; color: #FFFFFF; text-decoration: none; font-weight: 700; text-align: center; border-radius: 4px">Google Calendar</a>
         <a href="https://calendar.google.com/calendar/ical/wdctspta%40gmail.com/public/basic.ics" style="padding: 14px 18px; border: 1.5px solid #006274; color: #006274; text-decoration: none; font-weight: 700; text-align: center; border-radius: 4px">Apple / Outlook (.ics)</a>
       </div>
-      <div style="background: #FFFFFF; border: 1px solid #E2D9C9; padding: 26px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+      <div style="background: #FFFFFF; padding: 26px; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
         <h2 style="margin: 0; font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700">Also for families</h2>
         <a href="https://docs.google.com/spreadsheets/d/1a1Pb8z4dDutIXWYeqF_VPZSOgjcg8zEOSly50rg3r9w/edit?gid=1514295852#gid=1514295852" style="color: #006274; font-weight: 700">Class schedule &amp; rooms 課表教室 →</a>
         <a href="https://docs.google.com/spreadsheets/d/1htQVvw_EwBvYotCKQ5Y98aQwnbdOc9BWjemqZc8QUfw/edit?gid=1586637407#gid=1586637407" style="color: #006274; font-weight: 700">Safety patrol rotation 導護輪值 →</a>
